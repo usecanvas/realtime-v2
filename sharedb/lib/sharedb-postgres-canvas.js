@@ -66,8 +66,8 @@ class ShareDBPGCanvas extends ShareDBDB {
 
   doGetSnapshot(client, orgID, canvasID, fields, options, cb) {
     return client.query(
-      'SELECT * FROM canvases WHERE id = $1 LIMIT 1 FOR UPDATE',
-      [canvasID]
+      'SELECT * FROM canvases WHERE id = $1 AND team_id = $2 LIMIT 1 FOR UPDATE',
+      [canvasID, orgID]
     ).then(({ rows }) => {
       return resolveQuery(castToSnapshot(rows[0] || {}), cb, client);
     }).catch(err => {
