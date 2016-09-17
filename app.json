@@ -1,0 +1,10 @@
+{
+  "env": {
+    "DATABASE_URL": {
+      "description": "URL to connect to PostgreSQL"
+    },
+    "REDIS_URL": {
+      "description": "URL to connect to Redis"
+    }
+  }
+}
