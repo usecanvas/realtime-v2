@@ -34,7 +34,7 @@ app.use(function* (next) {
   yield next;
 });
 
-shareDBWsServer(server, { path: '/v2' });
+shareDBWsServer(server);
 server.on('request', app.callback());
 server.listen(process.env.PORT, onServerListen);
 
