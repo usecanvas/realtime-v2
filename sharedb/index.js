@@ -6,6 +6,8 @@ const ShareDBPostgresCanvas = require('./lib/sharedb-postgres-canvas');
 const WebSocketJSONStream = require('websocket-json-stream');
 const WebSocketServer = require('ws').Server;
 const shareDBLogger = require('sharedb-logger');
+const db = new ShareDBPostgresCanvas();
+const pubsub = new ShareDBRedisPubSub(process.env.REDIS_URL);
 
 module.exports = function shareDBWsServer(server, options) {
   options = options || {};
@@ -15,8 +17,6 @@ module.exports = function shareDBWsServer(server, options) {
 };
 
 function onWSConnection(wsConn) {
-  const db = new ShareDBPostgresCanvas();
-  const pubsub = new ShareDBRedisPubSub(process.env.REDIS_URL);
   const stream = new WebSocketJSONStream(wsConn);
   const shareDB = new ShareDB({ db, pubsub });
   if (process.env.NODE_ENV !== 'production') shareDBLogger(shareDB);
