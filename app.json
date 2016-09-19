@@ -3,6 +3,16 @@
     "DATABASE_URL": {
       "description": "URL to connect to PostgreSQL"
     },
+    "NODE_ENV": {
+      "description": "Environment to run Node in",
+      "development_value": "development",
+      "value": "production"
+    },
+    "PORT": {
+      "description": "Port on which to run the app",
+      "development_value": "4001",
+      "required": false
+    },
     "REDIS_URL": {
       "description": "URL to connect to Redis"
     }
