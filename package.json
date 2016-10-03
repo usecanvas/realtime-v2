@@ -12,6 +12,7 @@
   },
   "author": "Jonathan Clem <jonathan@usecanvas.com>",
   "dependencies": {
+    "cookie": "^0.3.1",
     "koa": "^1.2.11.2",
     "koa-ssl": "^2.0.0",
     "lodash": "^4.5.0",
