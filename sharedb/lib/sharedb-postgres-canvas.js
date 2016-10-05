@@ -91,6 +91,7 @@ class ShareDBPGCanvas extends ShareDBDB {
       UPDATE canvases SET
         blocks = $1,
         version = $2,
+        edited_at = $3,
         updated_at = $3
         WHERE id = $4`,
       [JSON.stringify(snapshot.data), snapshot.v,
