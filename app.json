@@ -25,6 +25,10 @@
     "SECRET_KEY_BASE": {
       "description": "Key shared with API to verify connection cookies",
       "development_value": "Bah0Bijei9epheeshuod4eBaB3aeThaeshet6vaevighieMai9maeti1aeb4Oa7ko9ohfoX2Quah0riec"
+    },
+    "TZ": {
+      "description": "Time zone for this app to run in",
+      "value": "UTC"
     }
   }
 }
