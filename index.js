@@ -31,6 +31,10 @@ app.use(function* (next) {
     return;
   }
 
+  if (this.method === 'GET' && this.path === '/boom') {
+    throw new Error('boom');
+  }
+
   yield next;
 });
 

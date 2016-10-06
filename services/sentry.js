@@ -5,7 +5,9 @@ const _     = require('lodash');
 
 let client;
 if (process.env.SENTRY_DSN) {
-  client = new Raven.Client(process.env.SENTRY_DSN);
+  client = new Raven.Client(process.env.SENTRY_DSN, {
+    release: process.env.HEROKU_SLUG_COMMIT
+  });
 }
 
 module.exports = {
