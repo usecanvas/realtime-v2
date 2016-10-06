@@ -18,6 +18,10 @@
       "description": "URL to connect to Redis",
       "development_value": "redis://localhost:6379"
     },
+    "SENTRY_DSN": {
+      "description": "A key for sending events to Sentry",
+      "required": false
+    },
     "SIGNING_SALT": {
       "description": "Salt shared with API for generating keys",
       "value": "vMKcfdD0"

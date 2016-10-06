@@ -18,7 +18,7 @@
     "lodash": "^4.5.0",
     "logfmt": "^1.2.0",
     "pg": "^6.1.0",
-    "raven": "^0.10.0",
+    "raven": "^0.12.1",
     "sharedb": "^1.0.0-beta.5",
     "sharedb-logger": "^0.1.4",
     "sharedb-redis-pubsub": "^1.0.0-beta",
