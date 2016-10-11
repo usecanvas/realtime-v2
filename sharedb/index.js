@@ -25,7 +25,7 @@ module.exports = function shareDBWsServer(server, options) {
 function onWSConnection(wsConn) {
   const stream = new WebSocketJSONStream(wsConn);
   const shareDB = new ShareDB({ db, pubsub });
-  // if (process.env.NODE_ENV !== 'production') shareDBLogger(shareDB);
+  if (process.env.NODE_ENV !== 'production') shareDBLogger(shareDB);
   shareDB.use('connect', authenticate);
   shareDB.use('receive', pingPong);
   shareDB.use('after submit', checkTrackbacks);
@@ -33,25 +33,25 @@ function onWSConnection(wsConn) {
 }
 
 function checkTrackbacks(req, cb) {
-  const newTrackbacks = req.op.op.filter(isTrackback);
-  const oldTrackbacks = req.op.op.filter(isUntrackback);
+  const accountID = req.agent.stream.ws.accountID;
 
-  newTrackbacks.forEach(trackback => {
-    const id = trackback.li.meta.url.match(CANVAS_URL)[1];
+  const newTrackbackIDs =
+    req.op.op.filter(isTrackback('li')).map(extractIDs('li'));
+  const oldTrackbackIDs =
+    req.op.op.filter(isTrackback('ld')).map(extractIDs('ld'));
 
+  newTrackbackIDs.forEach(trackbackID => {
     sidekiq.enqueue(
       'CanvasAPI.CanvasTrackback.Worker',
-      ['add', id, req.op.d, req.agent.stream.ws.accountID], {
+      ['add', trackbackID, req.op.d, accountID], {
         queue: 'default'
       });
   });
 
-  oldTrackbacks.forEach(trackback => {
-    const id = trackback.ld.meta.url.match(CANVAS_URL)[1];
-
+  oldTrackbackIDs.forEach(trackbackID => {
     sidekiq.enqueue(
       'CanvasAPI.CanvasTrackback.Worker',
-      ['remove', id, req.op.d, req.agent.stream.ws.accountID], {
+      ['remove', trackbackID, req.op.d, accountID], {
         queue: 'default'
       });
   });
@@ -59,16 +59,18 @@ function checkTrackbacks(req, cb) {
   cb();
 }
 
-function isTrackback(comp) {
-  if (comp.p.length > 1) return false;
-  if (!comp.li) return false;
-  return isCanvasTrackback(comp.li);
+function extractIDs(type) {
+  return function _extractIDs(trackback) {
+    return trackback[type].meta.url.match(CANVAS_URL)[1];
+  };
 }
 
-function isUntrackback(comp) {
-  if (comp.p.length > 1) return false;
-  if (!comp.ld) return false;
-  return isCanvasTrackback(comp.ld);
+function isTrackback(type) {
+  return function _isTrackback(comp) {
+    if (comp.p.length > 1) return false;
+    if (!comp[type]) return false;
+    return isCanvasTrackback(comp[type]);
+  };
 }
 
 function isCanvasTrackback(part) {
