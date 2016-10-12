@@ -9,7 +9,7 @@ const WebSocketServer = require('ws').Server;
 const { authenticate, getUserID } = require('./lib/authenticate');
 const db = new ShareDBPostgresCanvas();
 const pubsub = new ShareDBRedisPubSub(process.env.REDIS_URL);
-const redis = require('redis').createClient();
+const redis = require('redis').createClient(process.env.API_REDIS_URL);
 const shareDBLogger = require('sharedb-logger');
 const sidekiq = new Sidekiq(redis, 'exq');
 
