@@ -1,5 +1,9 @@
 {
   "env": {
+    "API_REDIS_URL": {
+      "description": "URL for connecting to API's worker Redis instance",
+      "development_value": "redis://localhost:6379"
+    },
     "DATABASE_URL": {
       "description": "URL to connect to PostgreSQL",
       "development_value": "postgres://localhost:5432/canvas_pro_api_dev"
@@ -33,6 +37,10 @@
     "TZ": {
       "description": "Time zone for this app to run in",
       "value": "UTC"
+    },
+    "WEB_URL": {
+      "description": "URL on which the web app runs",
+      "development_value": "http://localhost:4200"
     }
   }
 }
