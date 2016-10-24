@@ -13,7 +13,7 @@ const redis = require('redis').createClient(process.env.API_REDIS_URL);
 const shareDBLogger = require('sharedb-logger');
 const sidekiq = new Sidekiq(redis, 'exq');
 
-const CANVAS_URL = new RegExp(`^${process.env.WEB_URL}/[^/]+/([^/]{22})$`, 'i');
+const CANVAS_URL = new RegExp(`^${process.env.WEB_URL}/[^/]+/([^/]{22})(?:#[^?]+)?(?:\\?.*)?`, 'i');
 
 module.exports = function shareDBWsServer(server, options) {
   options = options || {};
