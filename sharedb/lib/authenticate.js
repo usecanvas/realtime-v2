@@ -21,9 +21,9 @@ function getAccountID(req) {
   return crypto.pbkdf2Async(SECRET_KEY_BASE, SIGNING_SALT, 1000, 32, 'sha256')
     .then(key => {
       const upgradeCookie = req.agent.stream.ws.upgradeReq.headers.cookie;
-      return validateCookie(upgradeCookie, key);
+      return upgradeCookie ? validateCookie(upgradeCookie, key) : null;
     }).then(payloadBinary => {
-      return extractUserID(payloadBinary);
+      return payloadBinary ? extractUserID(payloadBinary) : null;
     });
 }
 
