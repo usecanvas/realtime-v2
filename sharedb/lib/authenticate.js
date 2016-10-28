@@ -35,6 +35,7 @@ function extractUserID(payloadBinary) {
 
 function validateCookie(upgradeCookie, key) {
   const apiCookie = cookie.parse(upgradeCookie)._canvas_pro_api_key;
+  if (!apiCookie) return null;
   const [algoName, payload, signature] = apiCookie.split('.');
   const plainText = `${algoName}.${payload}`;
   const challenge = crypto.createHmac('sha256', key);
