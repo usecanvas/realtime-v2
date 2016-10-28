@@ -34,6 +34,7 @@ function onWSConnection(wsConn) {
 
 function checkTrackbacks(req, cb) {
   const accountID = req.agent.stream.ws.accountID;
+  if (!accountID) return cb();
 
   const newTrackbackIDs =
     req.op.op.filter(isTrackback('li')).map(extractIDs('li'));
