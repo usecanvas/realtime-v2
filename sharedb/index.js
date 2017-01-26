@@ -5,6 +5,7 @@ const ShareDBPostgresCanvas = require('./lib/sharedb-postgres-canvas');
 const ShareDBRedisPubSub = require('sharedb-redis-pubsub');
 const Sidekiq = require('sidekiq');
 const WebSocketJSONStream = require('websocket-json-stream');
+const WebSocket = require('ws');
 const WebSocketServer = require('ws').Server;
 const { authenticate, getUserID } = require('./lib/authenticate');
 const db = new ShareDBPostgresCanvas();
@@ -30,6 +31,7 @@ function onWSConnection(wsConn) {
   shareDB.use('receive', pingPong);
   shareDB.use('after submit', checkTrackbacks);
   shareDB.listen(stream);
+  wsConn.heartbeatInterval = setInterval(_ => sendPong(wsConn), 30000);
 }
 
 function checkTrackbacks(req, cb) {
@@ -81,4 +83,14 @@ function isCanvasTrackback(part) {
 function pingPong(req, cb) {
   if (!req.data.ping) return cb();
   return req.agent.send({ pong: true });
+}
+
+function sendPong(wsConn) {
+  if (wsConn.readyState == WebSocket.OPEN) {
+    wsConn.send(JSON.stringify({ pong: true }), err => {
+      if (err) clearInterval(wsConn.heartbeatInterval);
+    });
+  } else {
+    clearInterval(wsConn.heartbeatInterval);
+  }
 }
