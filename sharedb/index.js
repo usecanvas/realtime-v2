@@ -26,7 +26,12 @@ module.exports = function shareDBWsServer(server, options) {
 function onWSConnection(wsConn) {
   const stream = new WebSocketJSONStream(wsConn);
   const shareDB = new ShareDB({ db, pubsub });
-  if (process.env.NODE_ENV !== 'production') shareDBLogger(shareDB);
+
+  if (process.env.NODE_ENV === 'development' ||
+      process.env.LOG_SHAREDB) {
+    shareDBLogger(shareDB);
+  }
+
   shareDB.use('connect', authenticate);
   shareDB.use('receive', pingPong);
   shareDB.use('after submit', checkTrackbacks);

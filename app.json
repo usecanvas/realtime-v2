@@ -8,6 +8,10 @@
       "description": "URL to connect to PostgreSQL",
       "development_value": "postgres://localhost:5432/canvas_pro_api_dev"
     },
+    "LOG_SHAREDB": {
+      "description": "Whether to log all ShareDB activity",
+      "required": false
+    },
     "NODE_ENV": {
       "description": "Environment to run Node in",
       "development_value": "development",
