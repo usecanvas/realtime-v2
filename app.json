@@ -7,10 +7,6 @@
   ],
   "description": "The Canvas realtime server",
   "env": {
-    "API_REDIS_URL": {
-      "description": "URL pointing to Canvas API's Redis instance for its worker",
-      "required": false
-    },
     "LOG_SHAREDB": {
       "description": "Whether to log all ShareDB activity (this results in extremely verbose logs",
       "required": false
@@ -18,6 +14,9 @@
     "NODE_ENV": {
       "description": "Environment to run Node in",
       "value": "production"
+    },
+    "SECRET_KEY_BASE": {
+      "description": "Key shared with API to verify connection cookies"
     },
     "SENTRY_DSN": {
       "description": "A key for sending events to Sentry",
