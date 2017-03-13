@@ -17,7 +17,7 @@ following dependencies.
 - **Redis** (2): ShareDB uses Redis for caching of operations. This can be the
   same Redis instance as the API Redis instance, if need be.
 
-## Running
+## Running on Heroku
 
 After [deploying the Canvas API][canvas_api_readme], this app can be deployed
 using the Heroku button above. After the app is created, attach the API's
