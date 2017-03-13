@@ -1,30 +1,23 @@
 {
+  "name": "Canvas Realtime",
+  "website": "https://github.com/usecanvas/pro-realtime",
+  "addons": [
+    "heroku-postgresql",
+    "heroku-redis"
+  ],
+  "description": "The Canvas realtime server",
   "env": {
     "API_REDIS_URL": {
-      "description": "URL for connecting to API's worker Redis instance",
-      "development_value": "redis://localhost:6379"
-    },
-    "DATABASE_URL": {
-      "description": "URL to connect to PostgreSQL",
-      "development_value": "postgres://localhost:5432/canvas_pro_api_dev"
+      "description": "URL pointing to Canvas API's Redis instance for its worker",
+      "required": false
     },
     "LOG_SHAREDB": {
-      "description": "Whether to log all ShareDB activity",
+      "description": "Whether to log all ShareDB activity (this results in extremely verbose logs",
       "required": false
     },
     "NODE_ENV": {
       "description": "Environment to run Node in",
-      "development_value": "development",
       "value": "production"
-    },
-    "PORT": {
-      "description": "Port on which to run the app",
-      "development_value": "4001",
-      "required": false
-    },
-    "REDIS_URL": {
-      "description": "URL to connect to Redis",
-      "development_value": "redis://localhost:6379"
     },
     "SENTRY_DSN": {
       "description": "A key for sending events to Sentry",
@@ -34,17 +27,25 @@
       "description": "Salt shared with API for generating keys",
       "value": "vMKcfdD0"
     },
-    "SECRET_KEY_BASE": {
-      "description": "Key shared with API to verify connection cookies",
-      "development_value": "Bah0Bijei9epheeshuod4eBaB3aeThaeshet6vaevighieMai9maeti1aeb4Oa7ko9ohfoX2Quah0riec"
-    },
     "TZ": {
       "description": "Time zone for this app to run in",
       "value": "UTC"
     },
     "WEB_URL": {
-      "description": "URL on which the web app runs",
-      "development_value": "http://localhost:4200"
+      "description": "URL on which the web app runs"
+    }
+  },
+  "environments": {
+    "development": {
+      "API_REDIS_URL": "redis://localhost:6379",
+      "DATABASE_URL": "postgres://localhost:5432/canvas_pro_api_dev",
+      "NODE_ENV": "development",
+      "PORT": "4001",
+      "REDIS_URL": "redis://localhost:6379",
+      "SECRET_KEY_BASE": "Bah0Bijei9epheeshuod4eBaB3aeThaeshet6vaevighieMai9maeti1aeb4Oa7ko9ohfoX2Quah0riec",
+      "SIGNING_SALT": "vMKcfdD0",
+      "TZ": "UTC",
+      "WEB_URL": "http://localhost:4200"
     }
   }
 }
