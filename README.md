@@ -31,5 +31,5 @@ $ heroku addons:attach $API_REDIS_ADDON_NAME --as API_REDIS
 [app_json]: https://github.com/usecanvas/pro-realtime/blob/master/app.json
 [canvas_api_readme]: https://github.com/usecanvas/pro-api/blob/master/README.md
 [heroku_button_svg]: https://www.herokucdn.com/deploy/button.svg
-[heroku_deploy]: https://heroku.com/deploy?template=https://github.com/usecanvas/pro-realtime
+[heroku_deploy]: https://heroku.com/deploy?template=https://github.com/usecanvas/realtime-v2
 [sharedb]: https://github.com/share/sharedb
